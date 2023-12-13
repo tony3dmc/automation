@@ -9,5 +9,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    name: Check the README file
-    run: python tests/check_readme.py
+    - name: Check the README file
+      run: python tests/check_readme.py
