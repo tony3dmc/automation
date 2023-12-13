@@ -1,0 +1,13 @@
+name: First test automation workflow
+
+on: [push]
+
+jobs:
+  check-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    name: Check the README file
+    run: python tests/check_readme.py
