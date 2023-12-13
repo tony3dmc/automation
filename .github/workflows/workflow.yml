@@ -6,8 +6,29 @@ jobs:
   check-readme:
     runs-on: ubuntu-latest
 
+    services:
+      php:
+        image: php:8.3-apache
+        ports:
+          - 80:80
+        volumes:
+          - .:/var/www/html
+
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Wait for PHP to start
+      run: |
+        until curl --output /dev/null --silent --head --fail http://localhost; do
+          echo "Waiting for PHP"
+          sleep 5
+        done
+
     - name: Check the README file
       run: python tests/check_readme.py
+
+    - name: Check our php script works
+      run: python tests/check_php.py
